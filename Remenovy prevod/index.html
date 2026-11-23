@@ -23,10 +23,11 @@ small{color:#b9c8df}#largeArc{stroke:#f29c52}#smallArc{stroke:#f6d268}
 </head>
 <body><main>
 <h1>Otevřený řemenový převod</h1>
-<p>Měň osovou vzdálenost a průměry obou řemenic. Barevné oblouky ukazují skutečné úhly opásání; současně se počítá délka řemene. Model používá ideální geometrii otevřeného převodu.</p>
+<p>Vlevo je menší hnací řemenice, vpravo větší hnaná řemenice (převod do pomala). Měň osovou vzdálenost a průměry obou řemenic. Barevné oblouky ukazují skutečné úhly opásání; současně se počítá délka řemene. Model používá ideální geometrii otevřeného převodu.</p>
 <section class="panel">
 <svg id="scene" viewBox="0 0 760 380" role="img" aria-label="Animovaný otevřený řemenový převod">
 <defs><pattern id="groove" width="12" height="12" patternUnits="userSpaceOnUse"><path d="M0 0L12 12" stroke="#49627f" stroke-width="1"/></pattern></defs>
+<g transform="translate(700 0) scale(-1 1)">
 <line id="centers" stroke="#52637c" stroke-width="1.5" stroke-dasharray="6 6"/>
 <path id="belt" fill="none" stroke="#bac8d8" stroke-width="12" stroke-linejoin="round" stroke-linecap="round"/>
 <circle id="bigWheel" fill="#293e59" stroke="#7993b3" stroke-width="3"/>
@@ -37,9 +38,12 @@ small{color:#b9c8df}#largeArc{stroke:#f29c52}#smallArc{stroke:#f6d268}
 <path id="smallArc" fill="none" stroke-width="8" stroke-linecap="round"/>
 <g id="dots"></g>
 <circle id="hubBig" r="10" fill="#e9b454"/><circle id="hubSmall" r="8" fill="#e9b454"/>
+</g>
 <text id="bigLabel" text-anchor="middle" fill="#e9effb" font-size="17">D = 400 mm</text>
 <text id="smallLabel" text-anchor="middle" fill="#e9effb" font-size="17">d = 180 mm</text>
 <text id="distanceLabel" text-anchor="middle" fill="#b9c8df" font-size="16"></text>
+<text id="ratioLabel" x="745" y="40" text-anchor="end" fill="#f4c66b" font-size="23" font-weight="700">i = 2,22</text>
+<text x="745" y="62" text-anchor="end" fill="#b9c8df" font-size="13">převod do pomala</text>
 </svg>
 </section>
 <section class="panel">
@@ -58,7 +62,7 @@ small{color:#b9c8df}#largeArc{stroke:#f29c52}#smallArc{stroke:#f6d268}
 <div class="stat"><strong id="aValue">500 mm</strong><span>Osová vzdálenost</span></div>
 <div class="stat"><strong id="smallAngle">154,58°</strong><span>Úhel opásání malé řemenice</span></div><div class="stat"><strong id="beltLength">—</strong><span>Geometrická délka řemene</span></div>
 </section>
-<p><small>Otevřený převod: β = arcsin((D − d)/(2a)); α<sub>velká</sub> = 180° + 2β, α<sub>malá</sub> = 180° − 2β. Přesná geometrická délka ideálně tenkého řemene: L = 2√(a² − ((D − d)/2)²) + (D/2)·α<sub>velká</sub> + (d/2)·α<sub>malá</sub>, kde úhly ve vzorci pro L jsou v radiánech. Neuvažuje se tloušťka řemene ani prokluz.</small></p>
+<p><small>Otevřený převod bez prokluzu: i = n₁/n₂ = D/d (menší hnací řemenice vlevo, větší hnaná vpravo). β = arcsin((D − d)/(2a)); α<sub>velká</sub> = 180° + 2β, α<sub>malá</sub> = 180° − 2β. Přesná geometrická délka ideálně tenkého řemene: L = 2√(a² − ((D − d)/2)²) + (D/2)·α<sub>velká</sub> + (d/2)·α<sub>malá</sub>, kde úhly ve vzorci pro L jsou v radiánech. Neuvažuje se tloušťka řemene ani prokluz.</small></p>
 </main>
 <script>
 (()=>{
@@ -83,9 +87,9 @@ for(const [id,cx,rad] of [["bigWheel",x1,R],["smallWheel",x2,r]]){$(id).setAttri
 for(const [id,cx] of [["hubBig",x1],["hubSmall",x2]]){$(id).setAttribute("cx",cx);$(id).setAttribute("cy",y)}
 spokes("spokesBig",x1,R);spokes("spokesSmall",x2,r);
 $("centers").setAttribute("x1",x1);$("centers").setAttribute("x2",x2);$("centers").setAttribute("y1",y);$("centers").setAttribute("y2",y);
-$("bigLabel").setAttribute("x",x1);$("bigLabel").setAttribute("y",y+R+47);
-$("smallLabel").setAttribute("x",x2);$("smallLabel").setAttribute("y",y+r+47);
-$("distanceLabel").setAttribute("x",(x1+x2)/2);$("distanceLabel").setAttribute("y",340);
+$("bigLabel").setAttribute("x",700-x1);$("bigLabel").setAttribute("y",y+R+47);
+$("smallLabel").setAttribute("x",700-x2);$("smallLabel").setAttribute("y",y+r+47);
+$("distanceLabel").setAttribute("x",700-(x1+x2)/2);$("distanceLabel").setAttribute("y",340);
 $("distanceLabel").textContent=`a = ${a} mm`;
 $("distanceOut").textContent=a;$("aValue").textContent=`${a} mm`;
 const deg=beta*180/Math.PI;
@@ -93,6 +97,7 @@ const alphaBig=Math.PI+2*beta,alphaSmall=Math.PI-2*beta;
 const L=2*Math.sqrt(a*a-((D-d)/2)**2)+D/2*alphaBig+d/2*alphaSmall;
 $("beltLength").textContent=L.toLocaleString("cs-CZ",{minimumFractionDigits:1,maximumFractionDigits:1})+" mm";
 $("bigDiameterOut").textContent=D;$("smallDiameterOut").textContent=d;
+$("ratioLabel").textContent=`i = ${(D/d).toLocaleString("cs-CZ",{minimumFractionDigits:2,maximumFractionDigits:2})}`;
 $("bigLabel").textContent=`D = ${D} mm`;$("smallLabel").textContent=`d = ${d} mm`;
 $("bigAngle").textContent=(180+2*deg).toFixed(2).replace(".",",")+"°";
 $("smallAngle").textContent=(180-2*deg).toFixed(2).replace(".",",")+"°";
