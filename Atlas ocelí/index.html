@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f2947">
+  <title>Atlas ocelí | Vyhledávač materiálů ČSN</title>
+  <meta name="description" content="Přehled mezí pevnosti, mezí kluzu a použití vybraných ocelí podle původní ČSN.">
+  <style>
+    :root{--ink:#122a45;--navy:#0f2947;--navy2:#173b61;--cream:#f4f0e7;--paper:#fffdf8;--orange:#e86b32;--orange-soft:#fff0e7;--blue-soft:#eaf2f7;--line:#d7d6d0}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select{font:inherit;color:inherit}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .hero{position:relative;min-height:430px;overflow:hidden;color:#fff;background:radial-gradient(circle at 76% 24%,rgba(255,255,255,.09) 0 2px,transparent 3px),linear-gradient(112deg,var(--navy) 0%,#123250 61%,#1b466d 100%)}
+    .hero:before,.hero:after{content:"";position:absolute;border:1px solid rgba(255,255,255,.12);border-radius:50%;pointer-events:none}.hero:before{width:530px;height:530px;right:-95px;top:-214px;box-shadow:0 0 0 82px rgba(255,255,255,.025),0 0 0 164px rgba(255,255,255,.02)}.hero:after{width:260px;height:260px;right:13%;bottom:-208px;border-width:44px;border-color:rgba(255,255,255,.025)}
+    .topbar,.hero-copy,.workspace{width:min(1120px,calc(100% - 48px));margin-inline:auto}.topbar{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;padding-top:30px}.brand{display:inline-flex;align-items:center;gap:12px;color:#fff;text-decoration:none;font-size:13px;font-weight:800;letter-spacing:.13em}.brand-mark{display:grid;place-items:center;width:34px;height:34px;border:1px solid rgba(255,255,255,.45);font:18px Georgia,serif}.edition{font-size:12px;letter-spacing:.08em;color:rgba(255,255,255,.65)}
+    .hero-copy{position:relative;z-index:1;padding:68px 0 86px}.eyebrow{margin:0 0 18px;color:#f2aa7a;font-size:12px;font-weight:800;letter-spacing:.17em;text-transform:uppercase}h1{max-width:790px;margin:0;font:500 clamp(43px,6.2vw,72px)/.98 Georgia,"Times New Roman",serif;letter-spacing:-.035em}.intro{max-width:630px;margin:25px 0 0;color:rgba(255,255,255,.75);font-size:17px;line-height:1.65}
+    .workspace{position:relative;z-index:3;margin-top:-44px;padding-bottom:42px}.selector-card{padding:31px 34px 34px;background:var(--paper);border:1px solid rgba(18,42,69,.08);box-shadow:0 18px 56px rgba(9,32,55,.13)}.section-head{display:flex;align-items:center;justify-content:space-between;gap:24px}.section-head>div{display:flex;align-items:center;gap:12px}.section-head p{margin:0;font-size:12px;line-height:1;font-weight:850;letter-spacing:.13em}.step{display:grid;place-items:center;width:30px;height:30px;background:var(--orange);color:white;font-size:11px;font-weight:850}.hint,.result-code{color:#74808b;font-size:13px}
+    .search-row{display:grid;grid-template-columns:minmax(220px,.7fr) minmax(300px,1.3fr);gap:14px;margin-top:24px}.field{display:flex;flex-direction:column;gap:7px}.field label{font-size:13px;font-weight:750;color:#5c6975}.field input,.field select{width:100%;height:58px;padding:0 17px;background:#fff;border:1px solid #c7ccd0;border-radius:0;outline:0}.field input:focus,.field select:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(232,107,50,.13)}.field select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--orange) 50%),linear-gradient(135deg,var(--orange) 50%,transparent 50%);background-position:calc(100% - 21px) 25px,calc(100% - 15px) 25px;background-size:6px 6px,6px 6px;background-repeat:no-repeat;font-family:Georgia,serif;font-size:20px;font-weight:700}.count{margin:13px 0 0;color:#7b858e;font-size:13px}
+    .result-head{margin:38px 0 17px}.result-code{font-weight:700;color:var(--ink)}.property-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}.property,.usage{min-width:0;background:var(--paper);border:1px solid rgba(18,42,69,.1)}.property{position:relative;min-height:250px;padding:28px 30px;overflow:hidden}.property:after{content:"";position:absolute;width:150px;height:150px;right:-62px;bottom:-65px;border:25px solid rgba(18,42,69,.035);border-radius:50%}.strength{border-top:4px solid var(--orange)}.yield{border-top:4px solid #4c7fa2}.property-top{display:flex;justify-content:space-between;align-items:center}.icon{display:grid;place-items:center;width:42px;height:42px;font-size:21px;font-weight:800}.strength .icon{color:var(--orange);background:var(--orange-soft)}.yield .icon{color:#326b91;background:var(--blue-soft)}.unit{color:#858c91;font-size:12px;font-weight:750;letter-spacing:.1em}.label{margin:27px 0 8px;color:#65717b;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}.value{margin:0;font:600 clamp(33px,5vw,51px)/1.05 Georgia,serif;letter-spacing:-.03em}.value.missing{max-width:330px;font-size:clamp(24px,3vw,36px)}.symbol{position:absolute;right:29px;bottom:21px;margin:0;color:#8a9196;font:14px Georgia,serif}.symbol sub{font-size:10px}
+    .usage{grid-column:1/-1;display:grid;grid-template-columns:minmax(220px,.72fr) minmax(0,1.65fr);gap:30px;min-height:200px;padding:32px;border-left:4px solid var(--navy2)}.usage-head{display:flex;align-items:flex-start;gap:16px}.usage-icon{display:grid;place-items:center;width:42px;height:42px;flex:0 0 42px;color:#fff;background:var(--navy2);font:700 18px Georgia,serif}.usage-head .label{margin:2px 0 5px;color:var(--ink)}.usage-subtitle{margin:0;color:#8a9196;font-size:13px}.usage-text{margin:0;padding-left:30px;border-left:1px solid var(--line);color:#35495b;font:clamp(18px,2.1vw,23px)/1.56 Georgia,serif}
+    footer{display:flex;justify-content:space-between;gap:30px;margin-top:24px;padding-top:18px;border-top:1px solid #d1d0ca;color:#75808a;font-size:12px;line-height:1.5}footer p{max-width:49%;margin:0}
+    @media(max-width:700px){.topbar,.hero-copy,.workspace{width:min(100% - 28px,1120px)}.hero{min-height:415px}.edition{display:none}.hero-copy{padding:65px 0 82px}h1{font-size:clamp(40px,12vw,58px)}.selector-card{padding:23px 20px 25px}.hint{display:none}.search-row{grid-template-columns:1fr}.property-grid{grid-template-columns:1fr}.property{min-height:225px}.usage{grid-column:auto;grid-template-columns:1fr;gap:22px;padding:26px 24px}.usage-text{padding:22px 0 0;border-left:0;border-top:1px solid var(--line)}footer{flex-direction:column;gap:10px}footer p{max-width:none}}
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero" aria-labelledby="title">
+      <div class="topbar"><a class="brand" href="#title"><span class="brand-mark" aria-hidden="true">A</span><span>ATLAS OCELÍ</span></a><span class="edition">Původní ČSN · 10 záznamů</span></div>
+      <div class="hero-copy"><p class="eyebrow">Rychlý přehled materiálů</p><h1 id="title">Najděte správnou ocel<br>podle původní ČSN.</h1><p class="intro">Vyberte označení materiálu. Pevnost, mez kluzu i doporučené použití se zobrazí okamžitě a přesně podle zdrojové tabulky.</p></div>
+    </section>
+    <section class="workspace" aria-label="Vyhledávač materiálů">
+      <div class="selector-card">
+        <div class="section-head"><div><span class="step">01</span><p>OZNAČENÍ MATERIÁLU</p></div><span class="hint">Hledejte např. 11 320</span></div>
+        <div class="search-row">
+          <div class="field"><label for="search">Vyhledat ČSN nebo obsah uhlíku</label><input id="search" type="search" placeholder="Např. 11 320 nebo 0,17" autocomplete="off"></div>
+          <div class="field"><label for="material">Vyberte materiál</label><select id="material" aria-describedby="count"></select></div>
+        </div>
+        <p class="count" id="count" aria-live="polite"></p>
+      </div>
+      <div class="section-head result-head"><div><span class="step">02</span><p>VLASTNOSTI A POUŽITÍ</p></div><span class="result-code" id="resultCode"></span></div>
+      <div class="property-grid" aria-live="polite">
+        <article class="property strength"><div class="property-top"><span class="icon" aria-hidden="true">↗</span><span class="unit">MPa</span></div><p class="label">Mez pevnosti</p><p class="value" id="rm"></p><p class="symbol">R<sub>m</sub></p></article>
+        <article class="property yield"><div class="property-top"><span class="icon" aria-hidden="true">↔</span><span class="unit">MPa</span></div><p class="label">Mez kluzu min.</p><p class="value" id="re"></p><p class="symbol">R<sub>e</sub> min.</p></article>
+        <article class="usage"><div class="usage-head"><span class="usage-icon" aria-hidden="true">U</span><div><p class="label">Použití materiálu</p><p class="usage-subtitle">Dle zdrojové tabulky</p></div></div><p class="usage-text" id="usage"></p></article>
+      </div>
+      <footer><p>Zdroj: přiložená tabulka „Vlastnosti a použití vybraných ocelí ke tváření, včetně spékaných ocelí“.</p><p>¹) Označení poznámky je zachováno podle předlohy; její vysvětlení není na přiloženém výřezu uvedeno.</p></footer>
+    </section>
+  </main>
+  <script>
+    'use strict';
+    const materials=[
+      {csn:'10 000',carbon:null,rm:'max. 490',re:null,use:'Součásti nedimenzované výpočtem, bez nosných svarů. Svařitelnost dobrá. Tenkostěnné ohýbané profily.'},
+      {csn:'10 425',carbon:'0,28',rm:'570 až 770',re:'410',use:'Výztuž do betonových konstrukcí. Svařitelnost zaručena.'},
+      {csn:'10 505',carbon:'max. 0,22',rm:'550',re:'500',use:'Výztuž do betonových konstrukcí.'},
+      {csn:'11 110',carbon:'0,07 až 0,16',rm:'373 až 785 ¹)',re:'216 až 412 ¹)',use:'Velmi dobrá obrobitelnost (automatová ocel), nevhodná pro svařování. Součásti vyráběné na automatech.'},
+      {csn:'11 120',carbon:'0,15 až 0,25',rm:'451 až 598',re:'245 až 265',use:'Šrouby a matice. Velmi dobrá obrobitelnost.'},
+      {csn:'11 140',carbon:'0,35 až 0,45',rm:'570 až 980 ¹)',re:'295 až 590 ¹)',use:'Velmi dobrá obrobitelnost (automatová ocel). Součásti namáhané staticky (spojky, pouzdra, čepy, kolíky apod.).'},
+      {csn:'11 300',carbon:'0,09',rm:'265 až 392 ¹)',re:'157 až 177 ¹)',use:'Hlubokotažné plechy na části karoserií, pásy a pruhy na lisování součástí jízdních kol, nádrží na benzín, radiátory. Nevhodná k pokovování a smaltování. ŽM: 640 až 680 °C.'},
+      {csn:'11 320',carbon:'0,11',rm:'270 až 490 ¹)',re:'180 až 310 ¹)',use:'K mírnému nebo hlubokému tažení, k objemovému tváření. Svařitelnost zaručená. Trubky svařované z pásů pro olejové chladiče transformátorů, potrubí, nábytek, jízdní kola, motocykly, vtokové potrubí vodních turbín, závitové trubky pro plynovody, vodovody, ústřední topení aj.'},
+      {csn:'11 343',carbon:'0,17',rm:'310 až 440',re:'155 až 205',use:'Svařované staticky a mírně dynamicky namáhané součásti. Svařitelnost dobrá. Tvářitelná za tepla. Obrobitelnost 16b až 15b. NŽ: 900 až 930 °C, TT: 1 150 až 850 °C.'},
+      {csn:'11 353',carbon:'0,18',rm:'343 až 441',re:'216 až 245 ¹)',use:'Na bezešvé trubky. Svařitelnost zaručená do tloušťky stěny 25 mm. Na nosné trubkové konstrukce, pro vedení oleje, nafty, vody, páry, vzduchu, plynu a na spojovací součásti potrubí. NŽ: 900 až 930 °C.'}
+    ];
+    const search=document.getElementById('search');
+    const select=document.getElementById('material');
+    const count=document.getElementById('count');
+    const normalized=value=>value.toLocaleLowerCase('cs-CZ').replaceAll(' ','');
+    function matches(material,query){return normalized(material.csn+' '+(material.carbon||'')).includes(normalized(query));}
+    function render(material){document.getElementById('resultCode').textContent='ČSN '+material.csn;document.getElementById('rm').textContent=material.rm;const re=document.getElementById('re');re.textContent=material.re||'V tabulce neuvedeno';re.classList.toggle('missing',!material.re);document.getElementById('usage').textContent=material.use;}
+    function fill(){const previous=select.value;const filtered=materials.filter(material=>matches(material,search.value));select.replaceChildren(...filtered.map(material=>{const option=document.createElement('option');option.value=material.csn;option.textContent='ČSN '+material.csn+' · '+(material.carbon?'C '+material.carbon+' %':'obsah C neuveden');return option;}));if(filtered.some(material=>material.csn===previous))select.value=previous;const chosen=materials.find(material=>material.csn===select.value)||filtered[0];count.textContent=filtered.length===1?'Nalezen 1 materiál.':'Nalezeno '+filtered.length+' materiálů.';if(chosen)render(chosen);else{count.textContent='Žádný materiál neodpovídá hledání.';}
+    }
+    search.addEventListener('input',fill);select.addEventListener('change',()=>render(materials.find(material=>material.csn===select.value)));fill();select.value='10 425';render(materials[1]);
+  </script>
+</body>
+</html>
