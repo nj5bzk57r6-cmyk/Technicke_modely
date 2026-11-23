@@ -1,0 +1,617 @@
+[
+  {
+    "cell": "B2",
+    "value": "Průměr bubnu [mm] D",
+    "formula": null
+  },
+  {
+    "cell": "C2",
+    "value": "400",
+    "formula": null
+  },
+  {
+    "cell": "D2",
+    "value": "0.4",
+    "formula": "C2/1000"
+  },
+  {
+    "cell": "E2",
+    "value": "m",
+    "formula": null
+  },
+  {
+    "cell": "B3",
+    "value": "Rychlost pásu [m/s] v",
+    "formula": null
+  },
+  {
+    "cell": "C3",
+    "value": "2.5",
+    "formula": null
+  },
+  {
+    "cell": "B4",
+    "value": "Převodový poměr převodovky i 3,4",
+    "formula": null
+  },
+  {
+    "cell": "C4",
+    "value": "3.15",
+    "formula": null
+  },
+  {
+    "cell": "B5",
+    "value": "Osová vzdálenost  [mm] a",
+    "formula": null
+  },
+  {
+    "cell": "C5",
+    "value": "400",
+    "formula": null
+  },
+  {
+    "cell": "B6",
+    "value": "Součinitel dynamičnosti Cp",
+    "formula": null
+  },
+  {
+    "cell": "C6",
+    "value": "1.2",
+    "formula": null
+  },
+  {
+    "cell": "F6",
+    "value": "tabulka",
+    "formula": null
+  },
+  {
+    "cell": "B7",
+    "value": "Jmenovitý výkon [kW] P",
+    "formula": null
+  },
+  {
+    "cell": "C7",
+    "value": "2.2000000000000002",
+    "formula": null
+  },
+  {
+    "cell": "D7",
+    "value": "2200",
+    "formula": "1000*C7"
+  },
+  {
+    "cell": "E7",
+    "value": "W",
+    "formula": null
+  },
+  {
+    "cell": "F7",
+    "value": "tabulka",
+    "formula": null
+  },
+  {
+    "cell": "B8",
+    "value": "Otáčky motoru [ot/min]",
+    "formula": null
+  },
+  {
+    "cell": "C8",
+    "value": "700",
+    "formula": null
+  },
+  {
+    "cell": "D8",
+    "value": "11.666666666666666",
+    "formula": "C8/60"
+  },
+  {
+    "cell": "E8",
+    "value": "ot/s",
+    "formula": null
+  },
+  {
+    "cell": "F8",
+    "value": "tabulka",
+    "formula": null
+  },
+  {
+    "cell": "G8",
+    "value": "Oranžová pro hledání průřezu řemene",
+    "formula": null
+  },
+  {
+    "cell": "B9",
+    "value": "Volba prům. hnací řemenice str. 634 [mm]",
+    "formula": null
+  },
+  {
+    "cell": "C9",
+    "value": "180",
+    "formula": null
+  },
+  {
+    "cell": "D9",
+    "value": "0.18",
+    "formula": "C9/1000"
+  },
+  {
+    "cell": "E9",
+    "value": "m",
+    "formula": null
+  },
+  {
+    "cell": "B10",
+    "value": "Určení jmenovitého výkonu No str. 634 [kW]",
+    "formula": null
+  },
+  {
+    "cell": "C10",
+    "value": "2.88",
+    "formula": null
+  },
+  {
+    "cell": "B11",
+    "value": "Zdvih [mm]",
+    "formula": null
+  },
+  {
+    "cell": "C11",
+    "value": "#REF!",
+    "formula": "VLOOKUP('Hlavní strana'!#REF!,#REF!,5,0)"
+  },
+  {
+    "cell": "B12",
+    "value": "Mez pevnosti [Mpa]",
+    "formula": null
+  },
+  {
+    "cell": "C12",
+    "value": "#REF!",
+    "formula": "VLOOKUP('Hlavní strana'!#REF!,#REF!,16,0)"
+  },
+  {
+    "cell": "B13",
+    "value": "Výška matice [mm]",
+    "formula": null
+  },
+  {
+    "cell": "C13",
+    "value": "#REF!",
+    "formula": "VLOOKUP('Hlavní strana'!#REF!,#REF!,7,0)"
+  },
+  {
+    "cell": "B14",
+    "value": "Doporučený poloměr [mm]",
+    "formula": null
+  },
+  {
+    "cell": "C14",
+    "value": "#REF!",
+    "formula": "VLOOKUP('Hlavní strana'!#REF!,#REF!,8,0)"
+  },
+  {
+    "cell": "B15",
+    "value": "Maximální výška zvedáku [mm]",
+    "formula": null
+  },
+  {
+    "cell": "C15",
+    "value": "482.5",
+    "formula": null
+  },
+  {
+    "cell": "B16",
+    "value": "Délka ovládací páky [mm]",
+    "formula": null
+  },
+  {
+    "cell": "C16",
+    "value": "340",
+    "formula": null
+  },
+  {
+    "cell": "B19",
+    "value": "Otáčky bubnu [ot/s]",
+    "formula": null
+  },
+  {
+    "cell": "C19",
+    "value": "1.9894367886486917",
+    "formula": "C3/(D2*PI())"
+  },
+  {
+    "cell": "D19",
+    "value": "119.3662073189215",
+    "formula": "C19*60"
+  },
+  {
+    "cell": "E19",
+    "value": "ot/min",
+    "formula": null
+  },
+  {
+    "cell": "B20",
+    "value": "Jmenovitý přenášený výkon [kW] Pj",
+    "formula": null
+  },
+  {
+    "cell": "C20",
+    "value": "2.64",
+    "formula": "C6*C7"
+  },
+  {
+    "cell": "D20",
+    "value": "[kW]",
+    "formula": null
+  },
+  {
+    "cell": "B21",
+    "value": "Převodový poměr i 1,2",
+    "formula": null
+  },
+  {
+    "cell": "C21",
+    "value": "1.8616845354606182",
+    "formula": "C8/(D19*C4)"
+  },
+  {
+    "cell": "B22",
+    "value": "Průměr hnané řemenice Dp [mm]",
+    "formula": null
+  },
+  {
+    "cell": "C22",
+    "value": "335.10321638291128",
+    "formula": "C21*C9"
+  },
+  {
+    "cell": "D22",
+    "value": "mm",
+    "formula": null
+  },
+  {
+    "cell": "B23",
+    "value": "Volím normalizovaný prům. [mm]",
+    "formula": null
+  },
+  {
+    "cell": "C23",
+    "value": "560",
+    "formula": null
+  },
+  {
+    "cell": "D23",
+    "value": "mm",
+    "formula": null
+  },
+  {
+    "cell": "B24",
+    "value": "Průměr opásání alfa [stupňů]",
+    "formula": null
+  },
+  {
+    "cell": "C24",
+    "value": "141.32142857142856",
+    "formula": "180-(57*(C23-C9)/C23)"
+  },
+  {
+    "cell": "D24",
+    "value": "stupňů",
+    "formula": null
+  },
+  {
+    "cell": "B25",
+    "value": "Průměr opásání gama [stupňů]",
+    "formula": null
+  },
+  {
+    "cell": "C25",
+    "value": "19.339285714285722",
+    "formula": "90-(C24/2)"
+  },
+  {
+    "cell": "D25",
+    "value": "stupňů",
+    "formula": null
+  },
+  {
+    "cell": "B26",
+    "value": "Součinitel Ca",
+    "formula": null
+  },
+  {
+    "cell": "C26",
+    "value": "0.89",
+    "formula": null
+  },
+  {
+    "cell": "F26",
+    "value": "tabulka 635",
+    "formula": null
+  },
+  {
+    "cell": "B27",
+    "value": "Délka řemene [mm]",
+    "formula": null
+  },
+  {
+    "cell": "C27",
+    "value": "1962.0374999999999",
+    "formula": "(2*C5)+(1.57*(C23+C9))+((C23-C9)/(4*C5))"
+  },
+  {
+    "cell": "D27",
+    "value": "mm",
+    "formula": null
+  },
+  {
+    "cell": "B28",
+    "value": "Volím normalizovanou délku [mm]",
+    "formula": null
+  },
+  {
+    "cell": "C28",
+    "value": "2000",
+    "formula": null
+  },
+  {
+    "cell": "D28",
+    "value": "mm",
+    "formula": null
+  },
+  {
+    "cell": "B29",
+    "value": "W",
+    "formula": null
+  },
+  {
+    "cell": "C29",
+    "value": "1162.3892818282234",
+    "formula": "PI()*(C23+C9)/2"
+  },
+  {
+    "cell": "D29",
+    "value": "mm",
+    "formula": null
+  },
+  {
+    "cell": "B30",
+    "value": "y",
+    "formula": null
+  },
+  {
+    "cell": "C30",
+    "value": "36100",
+    "formula": "((C23-C9)/2)^2"
+  },
+  {
+    "cell": "D30",
+    "value": "mm2",
+    "formula": null
+  },
+  {
+    "cell": "B31",
+    "value": "Skutečná normalizovaná vzdálenost a [mm]",
+    "formula": null
+  },
+  {
+    "cell": "C31",
+    "value": "370.0248517352195",
+    "formula": "0.25*((C28-C29)+SQRT((C28-C29)^2-8*C30))"
+  },
+  {
+    "cell": "D31",
+    "value": "mm",
+    "formula": null
+  },
+  {
+    "cell": "B32",
+    "value": "Určení počtu řemenů z",
+    "formula": null
+  },
+  {
+    "cell": "C32",
+    "value": "2.1360000000000001",
+    "formula": "C10*C26*1/C6"
+  },
+  {
+    "cell": "B33",
+    "value": "Volím počet řemenů",
+    "formula": null
+  },
+  {
+    "cell": "C33",
+    "value": "2",
+    "formula": null
+  },
+  {
+    "cell": "D33",
+    "value": "ks",
+    "formula": null
+  },
+  {
+    "cell": "B35",
+    "value": "Obvodová rychlost malé řemenice v ",
+    "formula": null
+  },
+  {
+    "cell": "C35",
+    "value": "6.5973445725385655",
+    "formula": "PI()*D9*D8"
+  },
+  {
+    "cell": "D35",
+    "value": "m/s",
+    "formula": null
+  },
+  {
+    "cell": "B36",
+    "value": "Obvodová síla F ",
+    "formula": null
+  },
+  {
+    "cell": "C36",
+    "value": "333.46749981159024",
+    "formula": "D7/C35"
+  },
+  {
+    "cell": "D36",
+    "value": "N",
+    "formula": null
+  },
+  {
+    "cell": "B37",
+    "value": "Síla na ložiska Fu",
+    "formula": null
+  },
+  {
+    "cell": "C37",
+    "value": "666.93499962318049",
+    "formula": "2*C36"
+  },
+  {
+    "cell": "D37",
+    "value": "N",
+    "formula": null
+  },
+  {
+    "cell": "B39",
+    "value": "Mk hnací řemenice",
+    "formula": null
+  },
+  {
+    "cell": "C39",
+    "value": "30.012074983043121",
+    "formula": "D7/(2*PI()*D8)"
+  },
+  {
+    "cell": "D39",
+    "value": "Nm",
+    "formula": null
+  },
+  {
+    "cell": "B40",
+    "value": "Průměr hřídele",
+    "formula": null
+  },
+  {
+    "cell": "C40",
+    "value": "30",
+    "formula": null
+  },
+  {
+    "cell": "D40",
+    "value": "mm",
+    "formula": null
+  },
+  {
+    "cell": "B41",
+    "value": "Výška pera t1",
+    "formula": null
+  },
+  {
+    "cell": "C41",
+    "value": "2.9",
+    "formula": null
+  },
+  {
+    "cell": "D41",
+    "value": "mm",
+    "formula": null
+  },
+  {
+    "cell": "B42",
+    "value": "Délka pera",
+    "formula": null
+  },
+  {
+    "cell": "C42",
+    "value": "5.7494396519239691E-3",
+    "formula": "(2*C39)/(C40*C41*120)"
+  },
+  {
+    "cell": "D42",
+    "value": "m",
+    "formula": null
+  },
+  {
+    "cell": "E42",
+    "value": "5.7494396519239688",
+    "formula": "C42*1000"
+  },
+  {
+    "cell": "F42",
+    "value": "mm",
+    "formula": null
+  },
+  {
+    "cell": "B44",
+    "value": "Mk hnaná řemenice",
+    "formula": null
+  },
+  {
+    "cell": "C44",
+    "value": "176",
+    "formula": "D7/(2*PI()*C19)"
+  },
+  {
+    "cell": "D44",
+    "value": "Nm",
+    "formula": null
+  },
+  {
+    "cell": "B45",
+    "value": "Průměr hřídele",
+    "formula": null
+  },
+  {
+    "cell": "C45",
+    "value": "50",
+    "formula": null
+  },
+  {
+    "cell": "D45",
+    "value": "mm",
+    "formula": null
+  },
+  {
+    "cell": "B46",
+    "value": "Výška pera t1",
+    "formula": null
+  },
+  {
+    "cell": "C46",
+    "value": "3.8",
+    "formula": null
+  },
+  {
+    "cell": "D46",
+    "value": "mm",
+    "formula": null
+  },
+  {
+    "cell": "B47",
+    "value": "Délka pera",
+    "formula": null
+  },
+  {
+    "cell": "C47",
+    "value": "1.5438596491228071E-2",
+    "formula": "(2*C44)/(C45*C46*120)"
+  },
+  {
+    "cell": "D47",
+    "value": "m",
+    "formula": null
+  },
+  {
+    "cell": "E47",
+    "value": "15.43859649122807",
+    "formula": "C47*1000"
+  },
+  {
+    "cell": "F47",
+    "value": "mm",
+    "formula": null
+  }
+]
