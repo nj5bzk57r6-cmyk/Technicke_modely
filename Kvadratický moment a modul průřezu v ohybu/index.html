@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Těžiště a ohyb U průřezu</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#edf2f6;color:#18304a;font:16px/1.5 system-ui,sans-serif}main{max-width:1160px;margin:auto;padding:clamp(14px,3vw,36px)}h1{font-size:clamp(27px,5vw,44px);margin:0;letter-spacing:-.04em}h2{font-size:20px;margin:0 0 12px}p{margin:8px 0 14px}.muted,small{color:#4d6378}.grid{display:grid;grid-template-columns:minmax(0,2fr) minmax(250px,1fr);gap:16px}.card{background:#fff;border:1px solid #d6e1eb;border-radius:16px;padding:clamp(14px,2vw,22px);margin:12px 0}.grid .card{margin:0}.tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}button{font:inherit;font-weight:650;padding:8px 14px;min-height:44px;border-radius:9px;border:1px solid #b8cbdc;background:#fff;color:#18304a;cursor:pointer}button[aria-pressed=true]{background:#145980;color:white;border-color:#145980}input[type=range]{display:block;width:100%;height:36px;accent-color:#145980;margin:2px 0 14px}label{font-weight:600;display:flex;justify-content:space-between;gap:8px}output{color:#145980;font-variant-numeric:tabular-nums;white-space:nowrap}svg{display:block;width:100%;background:#f4f8fb;border-radius:10px}svg text{font:600 15px system-ui,sans-serif;paint-order:stroke;stroke:#f4f8fb;stroke-width:4px;stroke-linejoin:round}.legend{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:14px;margin-top:10px}.ref{color:#a33b31}.cent{color:#096958}.result{background:#e4f4ef;border-left:4px solid #16826e;border-radius:6px;padding:10px 12px;margin-top:12px}.scroll{overflow:auto}table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}th,td{text-align:right;padding:9px 10px;border-bottom:1px solid #dce6ef;white-space:nowrap}th:first-child,td:first-child{text-align:left}thead,tfoot{background:#edf4f9}.formula{font-variant-numeric:tabular-nums;overflow-wrap:anywhere}.steps{padding-left:24px}.steps li{margin-bottom:18px}summary{cursor:pointer;font-weight:650}@media(max-width:690px){.grid{grid-template-columns:1fr}.drawing{order:1}}
+</style></head><body><main>
+<h1>Těžiště a ohyb U průřezu</h1><p class="muted">Mechanika · Složený průřez ze tří obdélníků · Rozměry v mm</p>
+<div class="grid">
+<section class="card drawing"><h2>Kótovaný průřez</h2>
+<svg id="diagram" viewBox="0 0 590 455" role="img" aria-labelledby="drawingTitle drawingDescription"><title id="drawingTitle">U průřez s kótami, souřadnými osami a těžištěm</title><desc id="drawingDescription"></desc><g id="drawing"></g></svg>
+<div class="legend"><span class="ref">– – x, y · osy zadání</span><span class="cent">– – x<sub>T</sub>, y<sub>T</sub> · těžišťové osy</span></div><div id="centroid" class="result"></div></section>
+<section class="card"><h2>Rozměry průřezu</h2>
+<div class="tools"><button id="presetA" type="button" aria-pressed="true">Varianta A</button><button id="presetB" type="button" aria-pressed="false">Varianta B</button></div>
+<div id="controls"></div><button id="reset" type="button">Obnovit rozměry varianty</button>
+<p class="muted" id="opening"></p></section>
+</div>
+<section class="card"><h2>Výpočet krok za krokem</h2>
+<p>Počátek O leží uprostřed šířky na horní hraně dna. Osa x míří doprava, osa y nahoru. Dno proto má zápornou souřadnici y. Obě stojiny mají stejnou šířku a výšku.</p>
+<p class="muted">Zobrazená čísla jsou zaokrouhlená na dvě desetinná místa. Výpočet používá nezaokrouhlené hodnoty.</p>
+<ol class="steps">
+<li><h2>Těžiště a posunutí od osy zadání</h2>
+<p>Souřadnice y<sub>i</sub> je svislé posunutí těžiště obdélníku od osy x v zadání. Kladná hodnota míří nahoru, záporná dolů.</p>
+<div class="scroll" tabindex="0" aria-label="Plochy a polohy těžišť obdélníků"><table><thead><tr>
+<th scope="col">Část</th><th scope="col">Výpočet plochy A<sub>i</sub> [mm²]</th><th scope="col">Posunutí y<sub>i</sub> [mm]</th>
+</tr></thead><tbody id="areaRows"></tbody><tfoot id="areaSum"></tfoot></table></div>
+<div id="centroidSteps"></div></li>
+<li><h2>Osa X · kvadratický moment a průřezový modul</h2>
+<p>Pro vodorovnou těžišťovou osu je b vodorovná šířka obdélníku a h jeho svislá výška. Vzdálenost a<sub>x</sub> měříme svisle od těžiště obdélníku k ose x<sub>T</sub>.</p>
+<div class="scroll" tabindex="0" aria-label="Steinerova věta pro vodorovnou osu"><table><thead><tr>
+<th scope="col">Část</th><th scope="col">J<sub>x,i</sub> = bh³/12 [mm⁴]</th><th scope="col">a<sub>x</sub> = |y<sub>i</sub> − y<sub>T</sub>| [mm]</th><th scope="col">A<sub>i</sub>·a<sub>x</sub>² [mm⁴]</th><th scope="col">J<sub>xT,i</sub> = J<sub>x,i</sub> + A<sub>i</sub>·a<sub>x</sub>² [mm⁴]</th>
+</tr></thead><tbody id="inertiaRowsX"></tbody><tfoot id="inertiaSumX"></tfoot></table></div>
+<p class="formula" id="referenceInertiaX"></p><h3>Průřezový modul W<sub>ox</sub></h3><div id="moduliX"></div></li>
+<li><h2>Osa Y · kvadratický moment a průřezový modul</h2>
+<p>Pro svislou těžišťovou osu se rozměry ve vzorci prohodí. Na třetí mocninu jde vodorovná šířka b, protože je kolmá k ose y<sub>T</sub>. Vzdálenost a<sub>y</sub> měříme vodorovně.</p>
+<div class="scroll" tabindex="0" aria-label="Steinerova věta pro svislou osu"><table><thead><tr>
+<th scope="col">Část</th><th scope="col">J<sub>y,i</sub> = hb³/12 [mm⁴]</th><th scope="col">a<sub>y</sub> = |x<sub>i</sub>| [mm]</th><th scope="col">A<sub>i</sub>·a<sub>y</sub>² [mm⁴]</th><th scope="col">J<sub>yT,i</sub> = J<sub>y,i</sub> + A<sub>i</sub>·a<sub>y</sub>² [mm⁴]</th>
+</tr></thead><tbody id="inertiaRowsY"></tbody><tfoot id="inertiaSumY"></tfoot></table></div>
+<p class="formula" id="referenceInertiaY"></p><h3>Průřezový modul W<sub>oy</sub></h3><div id="moduliY"></div></li>
+</ol></section>
+</main><script>
+'use strict';
+const variants = { A: { B:160, t:40, h:160, d:20 }, B: { B:160, t:30, h:120, d:10 } };
+const dimensions = [
+  ['B','B · celková šířka',60,360],
+  ['t','t · šířka jedné stojiny',5,170],
+  ['h','h · výška stojin nad dnem',20,260],
+  ['d','d · tloušťka dna',5,160]
+];
+const get = id => document.getElementById(id);
+const number = new Intl.NumberFormat('cs-CZ', {maximumFractionDigits:2});
+const fmt = value => number.format(Math.abs(value)<1e-9 ? 0 : value);
+let variant = 'A';
+let values = {...variants.A};
+
+function calculate({B,t,h,d}) {
+  const offset = (B-t)/2;
+  const parts = [
+    {name:'1 · Dno', b:B, height:d, x:0, y:-d/2},
+    {name:'2 · Levá stojina', b:t, height:h, x:-offset, y:h/2},
+    {name:'3 · Pravá stojina', b:t, height:h, x:offset, y:h/2}
+  ];
+  for (const p of parts) {
+    p.area = p.b*p.height;
+    p.sx = p.area*p.y;
+  }
+  const sum = key => parts.reduce((total,p)=>total+p[key],0);
+  const area = sum('area'), sx = sum('sx'), yT = sx/area;
+  for (const p of parts) {
+    p.jx = p.b*p.height**3/12;
+    p.jy = p.height*p.b**3/12;
+    p.ax = p.area*(p.y-yT)**2;
+    p.ay = p.area*p.x**2;
+  }
+  const jxT = sum('jx')+sum('ax'), jy = sum('jy')+sum('ay');
+  const top = h-yT, bottom = d+yT;
+  return {parts,area,sx,yT,jxT,jy,jx:jxT+area*yT**2,top,bottom,
+    wTop:jxT/top,wBottom:jxT/bottom,wy:jy/(B/2)};
+}
+
+function draw({B,t,h,d}, {yT}) {
+  const s = Math.min(345/B,285/(h+d));
+  const mid = 295, base = 350-d*s;
+  const x = v => mid+v*s, y = v => base-v*s;
+  const left = x(-B/2), right = x(B/2), top = y(h), bottom = y(-d), cy = y(yT);
+  const line = (a,b,c,e,color='#4e6680',dash='') =>
+    '<line x1="'+a+'" y1="'+b+'" x2="'+c+'" y2="'+e+'" stroke="'+color+'" stroke-width="1.4" stroke-dasharray="'+dash+'"/>';
+  const txt = (a,b,label,color='#233d55',anchor='middle') =>
+    '<text x="'+a+'" y="'+b+'" text-anchor="'+anchor+'" fill="'+color+'">'+label+'</text>';
+  function rect(a,b,w,height,color) {
+    return '<rect x="'+a+'" y="'+b+'" width="'+w+'" height="'+height+'" fill="'+color+'" stroke="#234e6a" stroke-width="1.5"/>';
+  }
+  function horizontal(a,b,level,edge,label) {
+    return line(a,edge,a,level+5)+line(b,edge,b,level+5)+line(a,level,b,level)+
+      line(a-4,level+4,a+4,level-4)+line(b-4,level+4,b+4,level-4)+txt((a+b)/2,level+23,label);
+  }
+  function vertical(a,b,col,edge,label,anchor='start',color='#4e6680') {
+    return line(edge,a,col,a,color)+line(edge,b,col,b,color)+line(col,a,col,b,color)+
+      line(col-4,a+4,col+4,a-4,color)+line(col-4,b+4,col+4,b-4,color)+
+      txt(col+(anchor==='end'?-8:8),(a+b)/2+5,label,color,anchor);
+  }
+  let drawing = rect(left,base,B*s,d*s,'#bad7eb')+rect(left,top,t*s,h*s,'#cbe6dc')+
+    rect(right-t*s,top,t*s,h*s,'#cbe6dc');
+  drawing += horizontal(left,right,397,bottom,'B = '+fmt(B));
+  drawing += horizontal(right-t*s,right,top-27,top,'t = '+fmt(t));
+  drawing += vertical(top,base,right+22,right,'h = '+fmt(h));
+  drawing += vertical(base,bottom,left-16,left,'d = '+fmt(d),'end');
+  drawing += line(left-25,base,right+95,base,'#a33b31','6 4')+txt(right+97,base+5,'x','#a33b31','start');
+  drawing += line(mid,top-40,mid,bottom+16,'#a33b31','6 4')+txt(mid,top-45,'y = yₜ','#a33b31');
+  drawing += line(left-25,cy,right+95,cy,'#096958','3 4')+txt(right+97,cy-6,'xₜ','#096958','start');
+  if (Math.abs(cy-base)>1) drawing += vertical(cy,base,left-24,left-5,'Δy = '+fmt(yT),'end','#096958');
+  drawing += '<circle cx="'+mid+'" cy="'+base+'" r="4" fill="#a33b31"/>'+
+    '<circle cx="'+mid+'" cy="'+cy+'" r="5" fill="#096958" stroke="white" stroke-width="1.5"/>'+
+    txt(mid+11,base+19,'O','#a33b31','start')+txt(mid+11,cy-9,'T','#096958','start');
+  get('drawing').innerHTML = drawing;
+  get('drawingDescription').textContent = 'Průřez s těžištěm na ose y. Souřadnice y těžiště je '+fmt(yT)+' mm.';
+}
+
+function row(head, cells) {
+  return '<tr><th scope="row">'+head+'</th>'+cells.map(cell=>'<td>'+cell+'</td>').join('')+'</tr>';
+}
+
+function renderInertia(axis, parts, yT, total) {
+  const horizontal = axis === 'X';
+  const label = horizontal ? 'xT' : 'yT';
+  const rows = parts.map(part => {
+    const [parallel, perpendicular, own, transfer, distance] = horizontal
+      ? [part.b, part.height, part.jx, part.ax, Math.abs(part.y-yT)]
+      : [part.height, part.b, part.jy, part.ay, Math.abs(part.x)];
+    return row(part.name, [
+      parallel+'·'+perpendicular+'³/12<br>'+fmt(own),
+      fmt(distance),
+      fmt(part.area)+'·'+fmt(distance)+'²<br>'+fmt(transfer),
+      '<strong>'+fmt(own+transfer)+'</strong>'
+    ]);
+  });
+  get('inertiaRows'+axis).innerHTML = rows.join('');
+  get('inertiaSum'+axis).innerHTML = '<tr><th scope="row" colspan="4">Součet tří řádků · J<sub>'+label+'</sub></th>'+
+    '<td><strong>'+fmt(total)+' mm⁴</strong></td></tr>';
+}
+
+function render() {
+  const result = calculate(values);
+  const {B,t,h,d} = values;
+  const {parts,area,sx,yT,jxT,jy,jx,top,bottom,wTop,wBottom,wy} = result;
+  draw(values,result);
+  get('opening').textContent = 'Světlá šířka mezi stojinami B − 2t = '+fmt(B-2*t)+' mm.';
+  get('centroid').innerHTML = '<b>T = [0 mm, '+fmt(yT)+' mm]</b><br>Posunutí od O: Δx = 0 mm, Δy = '+fmt(yT)+' mm.';
+  get('areaRows').innerHTML = parts.map(p=>row(p.name, [
+    p.b+' × '+p.height+' = '+fmt(p.area), fmt(p.y)
+  ])).join('');
+  get('areaSum').innerHTML = row('Celková plocha', ['<strong>'+fmt(area)+' mm²</strong>', '—']);
+  const location = yT>1e-9 ? 'nad osou x' : yT < -1e-9 ? 'pod osou x' : 'na ose x';
+  const weightedTerms = parts.map(p=>'('+fmt(p.area)+' · ('+fmt(p.y)+'))').join(' + ');
+  get('centroidSteps').innerHTML = '<p class="formula">x<sub>T</sub> = 0 mm díky symetrii.<br>'+
+    'y<sub>T</sub> = Σ(A<sub>i</sub>y<sub>i</sub>)/ΣA<sub>i</sub> = ['+weightedTerms+'] / '+fmt(area)+
+    ' = '+fmt(sx)+' / '+fmt(area)+' = <b>'+fmt(yT)+' mm</b>.</p>'+
+    '<p>Vzdálenost T od osy x je <b>'+fmt(Math.abs(yT))+' mm</b>. T leží '+location+' a '+fmt(bottom)+' mm od spodní hrany dna. Svislé osy y a y<sub>T</sub> splývají.</p>';
+  renderInertia('X',parts,yT,jxT);
+  get('referenceInertiaX').innerHTML = 'Vůči vodorovné ose zadání platí J<sub>x</sub> = J<sub>xT</sub> + A·y<sub>T</sub>² = '+fmt(jx)+' mm⁴.';
+  get('moduliX').innerHTML = '<p class="formula">Horní okraj: c = h − y<sub>T</sub> = '+fmt(top)+' mm<br>'+
+    'W<sub>ox, horní</sub> = J<sub>xT</sub>/c = '+fmt(jxT)+' / '+fmt(top)+' ≈ '+fmt(wTop)+' mm³.</p>'+
+    '<p class="formula">Dolní okraj: c = d + y<sub>T</sub> = '+fmt(bottom)+' mm<br>'+
+    'W<sub>ox, dolní</sub> = J<sub>xT</sub>/c = '+fmt(jxT)+' / '+fmt(bottom)+' ≈ '+fmt(wBottom)+' mm³.</p>'+
+    '<div class="result">Rozhoduje menší modul <b>W<sub>ox</sub> = '+fmt(Math.min(wTop,wBottom))+' mm³</b>.</div>';
+  renderInertia('Y',parts,yT,jy);
+  get('referenceInertiaY').innerHTML = 'Svislá osa zadání prochází těžištěm, proto J<sub>y</sub> = J<sub>yT</sub> = '+fmt(jy)+' mm⁴.';
+  get('moduliY').innerHTML = '<p class="formula">Levý i pravý okraj mají vzdálenost c = B/2 = '+fmt(B/2)+' mm.</p>'+
+    '<div class="result">W<sub>oy</sub> = J<sub>yT</sub>/c = '+fmt(jy)+' / '+fmt(B/2)+' ≈ <b>'+fmt(wy)+' mm³</b>.</div>';
+}
+
+for (const [key,label,min,max] of dimensions) {
+  const group = document.createElement('div');
+  group.innerHTML = '<label for="input'+key+'">'+label+' <output id="value'+key+'" for="input'+key+'"></output></label>'+
+    '<input id="input'+key+'" type="range" min="'+min+'" max="'+max+'" step="1">';
+  get('controls').appendChild(group);
+  get('input'+key).addEventListener('input', event=>{
+    values[key] = Number(event.target.value);
+    sync();
+  });
+}
+function sync() {
+  // A change in overall width may shrink the admissible range for the two webs.
+  const maxT = Math.min(170,Math.floor((values.B-1)/2));
+  values.t = Math.min(values.t,maxT);
+  get('inputt').max = maxT;
+  for (const [key] of dimensions) {
+    get('input'+key).value = values[key];
+    get('value'+key).textContent = fmt(values[key])+' mm';
+  }
+  render();
+}
+function load(name) {
+  variant = name;
+  values = {...variants[name]};
+  for (const key of Object.keys(variants)) get('preset'+key).setAttribute('aria-pressed',String(key===name));
+  sync();
+}
+get('presetA').addEventListener('click',()=>load('A'));
+get('presetB').addEventListener('click',()=>load('B'));
+get('reset').addEventListener('click',()=>load(variant));
+load('A');
+</script></body></html>
